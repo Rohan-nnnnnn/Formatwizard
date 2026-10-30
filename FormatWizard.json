@@ -1,0 +1,939 @@
+{
+  "name": "FormatWizard",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "FormatWizard",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Upload your File",
+              "fieldType": "file",
+              "multipleFiles": false,
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Enter format to convert into",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "PDF"
+                  },
+                  {
+                    "option": "DOCX"
+                  },
+                  {
+                    "option": "XLSX"
+                  },
+                  {
+                    "option": "PPTX"
+                  },
+                  {
+                    "option": "PNG"
+                  },
+                  {
+                    "option": "JPG"
+                  },
+                  {
+                    "option": "TXT"
+                  },
+                  {
+                    "option": "CSV"
+                  }
+                ]
+              },
+              "requiredField": true
+            }
+          ]
+        },
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        -400,
+        -48
+      ],
+      "id": "b1c8fa50-2d1e-42ab-9ee1-7a21557feaff",
+      "name": "Upload-File",
+      "webhookId": "69be5409-e3c2-4573-92df-ad3ca82992e8"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "38d1eab7-6999-47f0-9b11-a10d7cc66e2b",
+              "name": "target_format",
+              "value": "={{ $json[\"Enter format to convert into\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "e4b88fe6-78a9-4edb-8e92-d0f482a0cb0f",
+              "name": "original_filename",
+              "value": "={{ $binary.Upload_your_File.fileName }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -176,
+        -48
+      ],
+      "id": "6b6dc38e-1e0b-4991-96db-43161153ee5b",
+      "name": "Normalize Data"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $binary.Upload_your_File.fileExtension }}",
+                    "rightValue": "pdf",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "a48a1b24-b3ed-444e-b748-a95c88e745e5"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "PDF"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "62ea248c-7ffd-4bc7-b5ae-77d73811479b",
+                    "leftValue": "={{ $binary.Upload_your_File.fileExtension }}",
+                    "rightValue": "docx",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "DOCX"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "2f85c508-2f52-41fe-a5c1-62164fd7ae3f",
+                    "leftValue": "={{ $binary.Upload_your_File.fileExtension }}",
+                    "rightValue": "xlsx",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "XLSX"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "31c82549-c31b-422b-a596-8fe815ac7d9f",
+                    "leftValue": "={{ $binary.Upload_your_File.fileExtension }}",
+                    "rightValue": "pptx",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "PPTX"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "cc78238f-2682-485b-99ec-5df9e38bbfbc",
+                    "leftValue": "={{ $binary.Upload_your_File.fileExtension }}",
+                    "rightValue": "png",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "PNG"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "1efb9d64-d14f-4bfb-9ab1-249ae7f4390a",
+                    "leftValue": "={{ $binary.Upload_your_File.fileExtension }}",
+                    "rightValue": "jpg",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "JPG"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "b6d8dab1-e5b9-43af-835e-a1758ddb85be",
+                    "leftValue": "={{ $binary.Upload_your_File.fileExtension }}",
+                    "rightValue": "txt",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "TXT"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 3
+                },
+                "conditions": [
+                  {
+                    "id": "dc7bbd5f-cd10-4dba-bcd8-baaffaeb8ed7",
+                    "leftValue": "={{ $binary.Upload_your_File.fileExtension }}",
+                    "rightValue": "csv",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals",
+                      "name": "filter.operator.equals"
+                    }
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "CSV"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "none"
+        }
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.4,
+      "position": [
+        48,
+        -144
+      ],
+      "id": "06ad862b-97d2-4548-b6d2-09c90cbb47e6",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "jsCode": "\nconst item = $input.item;\n\n// Get the incoming binary data\nconst binary = item.binary ?? {};\nconst binaryKey = Object.keys(binary)[0];\n\nif (!binaryKey) {\n  throw new Error(\n    \"No binary file received. Check the Form Trigger output and Normalize Input node.\"\n  );\n}\n\nconst file = binary[binaryKey];\n\n// Detect the original filename and extension\nconst fileName = file.fileName || \"uploaded_file\";\n\nconst extensionMatch = fileName.match(/\\.([^.]+)$/);\n\nconst sourceFormat = String(\n  file.fileExtension ||\n  (extensionMatch ? extensionMatch[1] : \"\")\n).toLowerCase().replace(/^\\./, \"\");\n\n// Read the requested output format\nconst targetFormat = String(\n  item.json.target_format || \"\"\n).trim().toLowerCase().replace(/^\\./, \"\");\n\n// Supported formats\nconst supportedFormats = [\n  \"pdf\",\n  \"docx\",\n  \"xlsx\",\n  \"pptx\",\n  \"png\",\n  \"jpg\",\n  \"jpeg\",\n  \"txt\",\n  \"csv\"\n];\n\n// Validate source format\nif (!supportedFormats.includes(sourceFormat)) {\n  throw new Error(\n    `Unsupported input format: ${sourceFormat || \"unknown\"}`\n  );\n}\n\n// Validate target format\nif (!supportedFormats.includes(targetFormat)) {\n  throw new Error(\n    `Unsupported output format: ${targetFormat || \"not selected\"}`\n  );\n}\n\n// Prepare conversion plan\nconst conversionRequired = sourceFormat !== targetFormat;\n\nreturn {\n  json: {\n    ...item.json,\n    original_filename: fileName,\n    source_format: sourceFormat,\n    target_format: targetFormat,\n    conversion_key: `${sourceFormat}_to_${targetFormat}`,\n    conversion_required: conversionRequired,\n    processing_status: conversionRequired\n      ? \"READY_FOR_CONVERSION\"\n      : \"SAME_FORMAT\"\n  },\n  binary\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        272,
+        -48
+      ],
+      "id": "7b9c5825-9dcd-477f-a784-91fb001a687f",
+      "name": "Build Conversion Plan"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c74e541c-d4e0-41aa-ad03-81f957e99fca",
+              "leftValue": "={{ $json.conversion_required }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        496,
+        -48
+      ],
+      "id": "b2d232db-c58d-4af4-971a-dd16c3f77f23",
+      "name": "Check Conversion Required"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://cleverutils.com/api/v1/convert",
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "Upload_your_File"
+            },
+            {
+              "name": "to_format",
+              "value": "={{ $json.target_format }}"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "json"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        720,
+        -144
+      ],
+      "id": "05b41e1b-7f46-4b98-a3d0-23a263cb415c",
+      "name": "Cloud File Conversion"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.data.output.url }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        944,
+        -144
+      ],
+      "id": "0f62f08d-f80f-4601-9c25-dc65d1f1c296",
+      "name": "Download Converted File"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "516b85fc-eb69-41af-8f3f-b3da630022bc",
+              "name": "output_file_name",
+              "value": "={{ $('Build Conversion Plan').first().json.original_filename.replace(/\\.[^.]+$/, '') + '.' + $('Build Conversion Plan').first().json.target_format }}",
+              "type": "string"
+            },
+            {
+              "id": "ba973d47-01d1-454a-b4b4-063e66c4e020",
+              "name": "processing_status",
+              "value": "COMPLETED",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1168,
+        -144
+      ],
+      "id": "732d2984-5d99-4594-b5cb-8a0f8b68b014",
+      "name": "Prepare Output Metadata"
+    },
+    {
+      "parameters": {
+        "operation": "share",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "permissionsUi": {
+          "permissionsValues": {
+            "role": "reader",
+            "type": "anyone"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1616,
+        -144
+      ],
+      "id": "223d329b-9a13-4079-8151-97f0de6d7d01",
+      "name": "Create Download Link",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "I17cLKvpb4zei6B5",
+          "name": "KnowledgeForge"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "name": "={{ $('Prepare Output Metadata').first().json.output_file_name }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1yLpHAlemcoMfAZVi34yeyFVQnGXuyyng",
+          "mode": "list",
+          "cachedResultName": "FormatWizard",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1yLpHAlemcoMfAZVi34yeyFVQnGXuyyng"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1392,
+        -144
+      ],
+      "id": "1ff743cd-82ab-49e7-a8d7-9c9181f6232a",
+      "name": "Upload Converted file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "I17cLKvpb4zei6B5",
+          "name": "KnowledgeForge"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "59701471-47d2-4dae-b733-fcbd3fb53f07",
+              "name": "download_url",
+              "value": "={{ 'https://drive.google.com/uc?export=download&id=' + $('Upload Converted file').first().json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "ffe517e3-efbc-43eb-a9f8-7684895b1b0c",
+              "name": "view_url",
+              "value": "={{ 'https://drive.google.com/file/d/' + $('Upload Converted file').first().json.id + '/view' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1840,
+        -144
+      ],
+      "id": "95fc20dd-633d-44d4-99c0-9f57246b8136",
+      "name": "Prepare Download Link"
+    },
+    {
+      "parameters": {
+        "operation": "completion",
+        "completionTitle": "FormatWizard — Conversion Complete",
+        "completionMessage": "Your file has been processed successfully.\n\nYour converted file has been saved to Google Drive in the FormatWizard_Output folder.",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.form",
+      "typeVersion": 2.5,
+      "position": [
+        2288,
+        -48
+      ],
+      "id": "3a0de893-33fb-449f-b290-379f9b6e5b96",
+      "name": "Show Conversion Result",
+      "webhookId": "a61f6727-3bc1-4d4e-bb22-e1badf7b6e01"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "e8f7353b-b0d5-4c97-838e-9aae4039785c",
+              "name": "processing_status",
+              "value": "SAME_FORMAT",
+              "type": "string"
+            },
+            {
+              "id": "7e8d78a4-4b4a-4f8c-9eee-bb8b376b82bf",
+              "name": "output_file_name",
+              "value": "={{ $json.original_file_name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1168,
+        48
+      ],
+      "id": "53452b9a-e084-48ac-a2e4-425d0c8a6abd",
+      "name": "Return Original File"
+    },
+    {
+      "parameters": {
+        "operation": "share",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $('Upload Original File').first().json.id }}",
+          "mode": "id"
+        },
+        "permissionsUi": {
+          "permissionsValues": {
+            "role": "reader",
+            "type": "anyone"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1616,
+        48
+      ],
+      "id": "2a89ef22-3fca-429f-a44b-7e52706ecd88",
+      "name": "Share file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "I17cLKvpb4zei6B5",
+          "name": "KnowledgeForge"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "inputDataFieldName": "Upload_your_File",
+        "name": "={{ $json.output_file_name }}",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1yLpHAlemcoMfAZVi34yeyFVQnGXuyyng",
+          "mode": "list",
+          "cachedResultName": "FormatWizard",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1yLpHAlemcoMfAZVi34yeyFVQnGXuyyng"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1392,
+        48
+      ],
+      "id": "2a2a1246-e4d0-4320-b7ac-e26b0b114505",
+      "name": "Upload Original File",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "I17cLKvpb4zei6B5",
+          "name": "KnowledgeForge"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f9615842-c922-4984-9f2d-03ee155a9177",
+              "name": "download_url",
+              "value": "={{ 'https://drive.google.com/uc?export=download&id=' + $('Upload Original File').first().json.id }}",
+              "type": "string"
+            },
+            {
+              "id": "92a3f38e-d2ce-44ec-8337-7aac4f9259ec",
+              "name": "view_url",
+              "value": "={{ 'https://drive.google.com/file/d/' + $('Upload Original File').first().json.id + '/view' }}",
+              "type": "string"
+            }
+          ]
+        },
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        1840,
+        48
+      ],
+      "id": "bb724a8b-0232-4fa1-b534-70781f578198",
+      "name": "Prepare Original Download Link"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2064,
+        -48
+      ],
+      "id": "5c54c417-db52-454b-8e3a-e5b5966d25ed",
+      "name": "Merge"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Upload-File": {
+      "main": [
+        [
+          {
+            "node": "Normalize Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Data": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "Build Conversion Plan",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Conversion Plan",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Conversion Plan",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Conversion Plan",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Conversion Plan",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Conversion Plan",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Conversion Plan",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Conversion Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Conversion Plan": {
+      "main": [
+        [
+          {
+            "node": "Check Conversion Required",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Conversion Required": {
+      "main": [
+        [
+          {
+            "node": "Cloud File Conversion",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Return Original File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cloud File Conversion": {
+      "main": [
+        [
+          {
+            "node": "Download Converted File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Converted File": {
+      "main": [
+        [
+          {
+            "node": "Prepare Output Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Output Metadata": {
+      "main": [
+        [
+          {
+            "node": "Upload Converted file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Converted file": {
+      "main": [
+        [
+          {
+            "node": "Create Download Link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Download Link": {
+      "main": [
+        [
+          {
+            "node": "Prepare Download Link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Download Link": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Return Original File": {
+      "main": [
+        [
+          {
+            "node": "Upload Original File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Original File": {
+      "main": [
+        [
+          {
+            "node": "Share file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Share file": {
+      "main": [
+        [
+          {
+            "node": "Prepare Original Download Link",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Original Download Link": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Show Conversion Result",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "8b893f30-d9b0-4c0b-80f0-97165ed5cfa1",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "265623373d4440176b9b82cf96fcb8930a96864e202d72abd4bc2b6ab3513b7c"
+  },
+  "nodeGroups": [],
+  "id": "Kct0YNLwLbnGuCya",
+  "tags": []
+}
